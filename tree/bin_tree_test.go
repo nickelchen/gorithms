@@ -54,7 +54,7 @@ func DemoTree() *BinaryTree {
 	c22.AttachL(c33)
 	c22.AttachR(c34)
 
-	return &BinaryTree{root: root}
+	return NewBinaryTree(root)
 }
 
 func visit(node *Node) {

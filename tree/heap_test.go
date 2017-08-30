@@ -52,10 +52,7 @@ func DemoHeap() *Heap {
 	c22.AttachL(c33)
 	c22.AttachR(c34)
 
-	return &Heap{
-		BinaryTree: BinaryTree{root: root},
-	}
-
+	return NewHeap(root)
 }
 
 func TestHeap(_ *testing.T) {

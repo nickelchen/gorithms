@@ -35,6 +35,13 @@ func (tree BinaryTree) DFS(visit func(*Node)) {
 	dfs(tree.root, visit)
 }
 
+func NewBinaryTree(root *Node) *BinaryTree {
+	bintree := BinaryTree{
+		root: root,
+	}
+	return &bintree
+}
+
 func dfs(root *Node, visit func(*Node)) {
 	visit(root)
 	if root.left != nil {

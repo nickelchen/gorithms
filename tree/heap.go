@@ -61,6 +61,16 @@ func (heap Heap) Insert(node *Node) {
 	swim(node)
 }
 
+func NewHeap(root *Node) *Heap {
+	heap := Heap{
+		BinaryTree: BinaryTree{
+			root: root,
+		},
+	}
+
+	return &heap
+}
+
 func swim(node *Node) {
 	// swim up node to proper position
 	if node.parent == nil || node.parent.value > node.value {
