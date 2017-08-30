@@ -25,13 +25,51 @@ func InsertSort(numbers []int) {
 	tail := len(numbers) - 1
 
 	for i := 0; i < tail; i++ {
-		for j := i + 1; j > 0; j-- {
+		for j := i + 1; j >= 1; j-- {
 			if numbers[j-1] < numbers[j] {
 				break
 			} else {
 				numbers[j-1], numbers[j] = numbers[j], numbers[j-1]
 			}
 		}
+	}
+}
+
+func ShellSort(numbers []int) {
+	tail := len(numbers) - 1
+
+	step := 1
+	for step < len(numbers)/3 {
+		step = 3*step + 1
+	}
+
+	for step > 0 {
+		// do insert sort for each step length
+		for i := step - 1; i < tail; i++ {
+			for j := i + 1; j >= step; j -= step {
+				if numbers[j-step] < numbers[j] {
+					break
+				} else {
+					numbers[j-step], numbers[j] = numbers[j], numbers[j-step]
+				}
+			}
+		}
+		// decrease step. then do insert sort again.
+		step = step / 3
+	}
+}
+
+func SelectSort(numbers []int) {
+	tail := len(numbers) - 1
+
+	for i := 0; i <= tail; i++ {
+		min := i
+		for j := i; j <= tail; j++ {
+			if numbers[j] <= numbers[min] {
+				min = j
+			}
+		}
+		numbers[i], numbers[min] = numbers[min], numbers[i]
 	}
 }
 

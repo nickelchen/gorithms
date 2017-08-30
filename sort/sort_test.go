@@ -23,23 +23,36 @@ func verify(t *testing.T, n []int) {
 
 func TestQuickSort(t *testing.T) {
 	numbers := initNumbers()
-	quicksort(numbers)
+	QuickSort(numbers)
 	verify(t, numbers)
 }
 
 func TestInsertSort(t *testing.T) {
 	numbers := initNumbers()
-	insertsort(numbers)
+	InsertSort(numbers)
+	verify(t, numbers)
+}
+
+func TestShellSort(t *testing.T) {
+	numbers := initNumbers()
+	ShellSort(numbers)
+	verify(t, numbers)
+}
+
+func TestSelectSort(t *testing.T) {
+	numbers := initNumbers()
+	SelectSort(numbers)
 	verify(t, numbers)
 }
 
 func TestBubbleSort(t *testing.T) {
 	numbers := initNumbers()
-	bubblesort(numbers)
+	BubbleSort(numbers)
 	verify(t, numbers)
 }
+
 func TestMergeSort(t *testing.T) {
 	numbers := initNumbers()
-	numbers = mergesort(numbers)
+	numbers = MergeSort(numbers)
 	verify(t, numbers)
 }
