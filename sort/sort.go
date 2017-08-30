@@ -1,7 +1,7 @@
 package sort
 
 func QuickSort(numbers []int) {
-	// O(NlogN)
+	// worst: O(N^2); best: O(NlogN)
 	if len(numbers) <= 1 {
 		return
 	}
@@ -23,7 +23,7 @@ func QuickSort(numbers []int) {
 }
 
 func InsertSort(numbers []int) {
-	// O(N^2)
+	// worst: O(N^2); best: O(N)
 	tail := len(numbers) - 1
 
 	for i := 0; i < tail; i++ {
@@ -39,7 +39,6 @@ func InsertSort(numbers []int) {
 
 func ShellSort(numbers []int) {
 	// O(N^(3/2)) by Knuth,1973, steps are:  1, 4, 13, 40, 121, ...
-
 	tail := len(numbers) - 1
 
 	step := 1
@@ -64,7 +63,7 @@ func ShellSort(numbers []int) {
 }
 
 func SelectSort(numbers []int) {
-	// O(N^2)
+	// worst: O(N^2); best: O(N^2)
 	tail := len(numbers) - 1
 
 	for i := 0; i <= tail; i++ {
@@ -79,7 +78,7 @@ func SelectSort(numbers []int) {
 }
 
 func BubbleSort(numbers []int) {
-	// O(N^2)
+	// worst: O(N^2); best: O(N)
 	tail := len(numbers) - 1
 
 	for i := tail; i >= 0; i-- {
@@ -97,7 +96,7 @@ func BubbleSort(numbers []int) {
 }
 
 func MergeSort(numbers []int) []int {
-	// O(NlogN)
+	// worst: O(NlogN); best: O(N)
 	if len(numbers) <= 1 { // only 1 element.
 		return numbers
 	}
