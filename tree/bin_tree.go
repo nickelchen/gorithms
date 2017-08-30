@@ -1,73 +1,15 @@
 package tree
 
-import "fmt"
-
-type Node struct {
-	parent *Node
-	left   *Node
-	right  *Node
-	value  rune
+type BinaryTree struct {
+	root *Node
 }
 
-func (node *Node) print(prefix string, right bool) {
-	var lead string
-	var space string
-
-	if right {
-		lead = "└── "
-		space = "    "
-	} else {
-		lead = "├── "
-		space = "│   "
+func (tree BinaryTree) BFS(visit func(*Node)) {
+	if tree.root == nil {
+		return
 	}
 
-	fmt.Println(prefix + lead + string(node.value))
-
-	if node.left != nil {
-		node.left.print(prefix+space, false)
-	}
-	if node.right != nil {
-		node.right.print(prefix+space, true)
-	}
-}
-
-func (node *Node) Print() {
-	node.print("", true)
-}
-
-func AttachL(root *Node, child *Node) {
-	if root.left != nil {
-		DetachL(root, root.left)
-	}
-
-	root.left = child
-	child.parent = root
-}
-
-func AttachR(root *Node, child *Node) {
-	if root.right != nil {
-		DetachR(root, root.right)
-	}
-
-	root.right = child
-	child.parent = root
-}
-
-func DetachL(root *Node, node *Node) {
-	if root != nil {
-		root.left = nil
-	}
-	node.parent = nil
-}
-
-func DetachR(root *Node, node *Node) {
-	if root != nil {
-		root.right = nil
-	}
-	node.parent = nil
-}
-
-func BFS(root *Node, visit func(*Node)) {
+	root := tree.root
 	queue := []*Node{root}
 
 	for 0 < len(queue) {
@@ -85,12 +27,28 @@ func BFS(root *Node, visit func(*Node)) {
 	}
 }
 
-func DFS(root *Node, visit func(*Node)) {
+func (tree BinaryTree) DFS(visit func(*Node)) {
+	if tree.root == nil {
+		return
+	}
+
+	dfs(tree.root, visit)
+}
+
+func dfs(root *Node, visit func(*Node)) {
 	visit(root)
 	if root.left != nil {
-		DFS(root.left, visit)
+		dfs(root.left, visit)
 	}
 	if root.right != nil {
-		DFS(root.right, visit)
+		dfs(root.right, visit)
 	}
+}
+
+func (tree BinaryTree) Print() {
+	if tree.root == nil {
+		return
+	}
+
+	tree.root.Print()
 }

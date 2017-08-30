@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func DemoTree() *Node {
+func DemoTree() *BinaryTree {
 	/*
 	   └── T
 	       ├── S
@@ -39,46 +39,53 @@ func DemoTree() *Node {
 	c33 := &Node{value: 'H'}
 	c34 := &Node{value: 'G'}
 
-	AttachL(root, c11)
-	AttachR(root, c12)
+	root.AttachL(c11)
+	root.AttachR(c12)
 
-	AttachL(c11, c21)
-	AttachR(c11, c22)
+	c11.AttachL(c21)
+	c11.AttachR(c22)
 
-	AttachL(c12, c23)
-	AttachR(c12, c24)
+	c12.AttachL(c23)
+	c12.AttachR(c24)
 
-	AttachL(c21, c31)
-	AttachR(c21, c32)
+	c21.AttachL(c31)
+	c21.AttachR(c32)
 
-	AttachL(c22, c33)
-	AttachR(c22, c34)
+	c22.AttachL(c33)
+	c22.AttachR(c34)
 
-	return root
+	return &BinaryTree{root: root}
 }
 
 func visit(node *Node) {
 	fmt.Printf("%s ", string(node.value))
 }
 
-func TestTraverse(_ *testing.T) {
-	root := DemoTree()
-	root.Print()
+func TestBFS(_ *testing.T) {
+	tree := DemoTree()
+	tree.Print()
 
 	bfsResult := []rune{'T', 'S', 'R', 'P', 'N', 'O', 'A', 'E', 'I', 'H', 'G'}
+
+	var values []rune
+	visit := func(node *Node) { values = append(values, node.value) }
+
+	tree.BFS(visit)
+	if !reflect.DeepEqual(bfsResult, values) {
+		log.Fatal("bfs not equal. want: ", string(bfsResult), ", get: ", string(values))
+	}
+}
+
+func TestDFS(_ *testing.T) {
+	tree := DemoTree()
+	tree.Print()
+
 	dfsResult := []rune{'T', 'S', 'P', 'E', 'I', 'N', 'H', 'G', 'R', 'O', 'A'}
 
 	var values []rune
 	visit := func(node *Node) { values = append(values, node.value) }
 
-	BFS(root, visit)
-	if !reflect.DeepEqual(bfsResult, values) {
-		log.Fatal("bfs not equal. want: ", string(bfsResult), ", get: ", string(values))
-	}
-
-	values = []rune{}
-
-	DFS(root, visit)
+	tree.DFS(visit)
 	if !reflect.DeepEqual(dfsResult, values) {
 		log.Fatal("dfs not equal. want: ", string(dfsResult), ", get: ", string(values))
 	}

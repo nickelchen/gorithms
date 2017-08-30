@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func DemoHeap() *Node {
+func DemoHeap() *Heap {
 	/*
 	   └── T
 	       ├── S
@@ -37,37 +37,40 @@ func DemoHeap() *Node {
 	c33 := &Node{value: 'H'}
 	c34 := &Node{value: 'G'}
 
-	AttachL(root, c11)
-	AttachR(root, c12)
+	root.AttachL(c11)
+	root.AttachR(c12)
 
-	AttachL(c11, c21)
-	AttachR(c11, c22)
+	c11.AttachL(c21)
+	c11.AttachR(c22)
 
-	AttachL(c12, c23)
-	AttachR(c12, c24)
+	c12.AttachL(c23)
+	c12.AttachR(c24)
 
-	AttachL(c21, c31)
-	AttachR(c21, c32)
+	c21.AttachL(c31)
+	c21.AttachR(c32)
 
-	AttachL(c22, c33)
-	AttachR(c22, c34)
+	c22.AttachL(c33)
+	c22.AttachR(c34)
 
-	return root
+	return &Heap{
+		BinaryTree: BinaryTree{root: root},
+	}
+
 }
 
 func TestHeap(_ *testing.T) {
-	root := DemoHeap()
-	root.Print()
+	heap := DemoHeap()
+	heap.Print()
 
 	node := &Node{value: 'Z'}
-	Insert(root, node)
+	heap.Insert(node)
 
 	fmt.Printf("after insert Z:\n")
-	root.Print()
+	heap.Print()
 
-	Remove(root)
+	heap.RemoveMax()
 
 	fmt.Printf("after remove top:\n")
-	root.Print()
+	heap.Print()
 
 }
