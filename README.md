@@ -110,15 +110,15 @@ eg: `S` is left, `R` is right child of node `T` ; `E` is left, `I` is right chil
 tree:
 
 ```
-func (tree BinaryTree) BFS(visit func(*Node))
-func (tree BinaryTree) DFS(visit func(*Node))
-func (tree BinaryTree) Print()
+func (tree *BinaryTree) BFS(visit func(*Node))
+func (tree *BinaryTree) DFS(visit func(*Node))
+func (tree *BinaryTree) Print()
 ```
 
 heap:
 ```
-func (heap Heap) RemoveMax()
-func (heap Heap) Insert(node *Node)
+func (heap *Heap) RemoveMax()
+func (heap *Heap) Insert(node *Node)
 ```
 
 node:
