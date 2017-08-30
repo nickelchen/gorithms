@@ -1,5 +1,7 @@
 package tree
 
+import "fmt"
+
 type Node struct {
 	parent *Node
 	left   *Node

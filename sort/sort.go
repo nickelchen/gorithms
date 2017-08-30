@@ -1,6 +1,6 @@
 package sort
 
-func quicksort(numbers []int) {
+func QuickSort(numbers []int) {
 	if len(numbers) <= 1 {
 		return
 	}
@@ -17,11 +17,11 @@ func quicksort(numbers []int) {
 			i++
 		}
 	}
-	quicksort(numbers[:head])
-	quicksort(numbers[head+1:])
+	QuickSort(numbers[:head])
+	QuickSort(numbers[head+1:])
 }
 
-func insertsort(numbers []int) {
+func InsertSort(numbers []int) {
 	tail := len(numbers) - 1
 
 	for i := 0; i < tail; i++ {
@@ -35,7 +35,7 @@ func insertsort(numbers []int) {
 	}
 }
 
-func bubblesort(numbers []int) {
+func BubbleSort(numbers []int) {
 	tail := len(numbers) - 1
 
 	for i := tail; i >= 0; i-- {
@@ -52,14 +52,14 @@ func bubblesort(numbers []int) {
 	}
 }
 
-func mergesort(numbers []int) []int {
+func MergeSort(numbers []int) []int {
 	if len(numbers) <= 1 { // only 1 element.
 		return numbers
 	}
 
 	mid := len(numbers) / 2
-	s1 := mergesort(numbers[:mid]) // now s1 is sorted
-	s2 := mergesort(numbers[mid:]) // now s2 is sorted
+	s1 := MergeSort(numbers[:mid]) // now s1 is sorted
+	s2 := MergeSort(numbers[mid:]) // now s2 is sorted
 	s3 := merge(s1, s2)
 	return s3
 }
