@@ -143,7 +143,7 @@ func MergeSort(numbers []int) []int
 ### Test
 
 ```
-go test -v ./...
+go test ./...
 ```
 
 ### License

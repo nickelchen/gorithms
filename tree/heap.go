@@ -17,7 +17,7 @@ type Heap struct {
 }
 
 // Remove the max top node from the heap, then rebalance it.
-func (heap Heap) RemoveMax() {
+func (heap *Heap) RemoveMax() {
 	if heap.root == nil {
 		return
 	}
@@ -44,7 +44,7 @@ func (heap Heap) RemoveMax() {
 }
 
 // Insert a node value to the heap. then rebalance it.
-func (heap Heap) Insert(node *Node) {
+func (heap *Heap) Insert(node *Node) {
 	if heap.root == nil {
 		heap.root = node
 		return

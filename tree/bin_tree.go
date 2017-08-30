@@ -4,7 +4,7 @@ type BinaryTree struct {
 	root *Node
 }
 
-func (tree BinaryTree) BFS(visit func(*Node)) {
+func (tree *BinaryTree) BFS(visit func(*Node)) {
 	if tree.root == nil {
 		return
 	}
@@ -27,7 +27,7 @@ func (tree BinaryTree) BFS(visit func(*Node)) {
 	}
 }
 
-func (tree BinaryTree) DFS(visit func(*Node)) {
+func (tree *BinaryTree) DFS(visit func(*Node)) {
 	if tree.root == nil {
 		return
 	}
@@ -52,7 +52,7 @@ func dfs(root *Node, visit func(*Node)) {
 	}
 }
 
-func (tree BinaryTree) Print() {
+func (tree *BinaryTree) Print() {
 	if tree.root == nil {
 		return
 	}
