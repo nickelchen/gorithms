@@ -64,7 +64,7 @@ func heapDemo() {
 
 	node := &Node{value: 'Z'}
 
-	heap1 := tree.NewHeap(root)
+	heap1 := tree.NewBinaryHeap(root)
 	heap1.Insert(node)
 	heap1.RemoveMax()
 }
@@ -107,18 +107,18 @@ eg: `S` is left, `R` is right child of node `T` ; `E` is left, `I` is right chil
 
 ### API
 
-tree:
+binary tree:
 
 ```
+func (tree *BinaryTree) Print()
 func (tree *BinaryTree) BFS(visit func(*Node))
 func (tree *BinaryTree) DFS(visit func(*Node))
-func (tree *BinaryTree) Print()
 ```
 
-heap:
+binary heap, subclass binary tree:
 ```
-func (heap *Heap) RemoveMax()
-func (heap *Heap) Insert(node *Node)
+func (heap *BinaryHeap) RemoveMax()
+func (heap *BinaryHeap) Insert(node *Node)
 ```
 
 node:
