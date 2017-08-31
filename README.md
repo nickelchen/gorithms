@@ -17,7 +17,7 @@ import (
 	"github.com/nickelchen/gorithms/sort"
 )
 
-func sortNumbers() {
+func sortDemo() {
 	var arr := []int {100, 200, 1, 10}
 
 	sort.QuickSort(arr)
@@ -27,7 +27,7 @@ func sortNumbers() {
 
 ```
 
-tree & heap
+binary tree & heap
 
 ```
 import (
@@ -36,16 +36,16 @@ import (
 )
 
 func treeDemo() {
-	root := &tree.Node{value: 'T'}
+	root := &tree.Node{Value: 'T'}
 
 	// child level 1
-	c11 := &tree.Node{value: 'S'}
-	c12 := &tree.Node{value: 'R'}
+	c11 := &tree.Node{Value: 'S'}
+	c12 := &tree.Node{Value: 'R'}
 
 	root.AttachL(c11)
 	root.AttachR(c12)
 
-	visit := func(node *tree.Node) { fmt.Printf("%s "), node.value }
+	visit := func(node *tree.Node) { fmt.Printf("%s "), node.Value }
 
 	bin_tree1 := tree.NewBinaryTree(root)
 	bin_tree1.BFS(visit)
@@ -53,20 +53,27 @@ func treeDemo() {
 }
 
 func heapDemo() {
-	root := &tree.Node{value: 'T'}
+	root := &tree.Node{Value: 'T'}
 
 	// child level 1
-	c11 := &tree.Node{value: 'S'}
-	c12 := &tree.Node{value: 'R'}
+	c11 := &tree.Node{Value: 'S'}
+	c12 := &tree.Node{Value: 'R'}
 
 	root.AttachL(c11)
 	root.AttachR(c12)
 
-	node := &Node{value: 'Z'}
+	// create an empty heap.
+	heap1 := tree.NewBinaryHeap()
+	// insert the root node. now heap has 3 nodes
+	heap1.Insert(root)
 
-	heap1 := tree.NewBinaryHeap(root)
+	node := &Node{Value: 'Z'}
+	// insert to last. then swim up to right position('Z' is the top)
 	heap1.Insert(node)
-	heap1.RemoveMax()
+
+	// remove the top
+	node2 := heap1.RemoveMax()
+	fmt.Printf("%s", node2.Value)
 }
 ```
 
@@ -78,7 +85,7 @@ type Node struct {
 	parent *Node
 	left   *Node
 	right  *Node
-	value  rune
+	Value  rune
 }
 
 ```
@@ -117,7 +124,7 @@ func (tree *BinaryTree) DFS(visit func(*Node))
 
 binary heap, subclass binary tree:
 ```
-func (heap *BinaryHeap) RemoveMax()
+func (heap *BinaryHeap) RemoveMax() *Node
 func (heap *BinaryHeap) Insert(node *Node)
 ```
 
@@ -138,6 +145,7 @@ func ShellSort(numbers []int)
 func SelectSort(numbers []int)
 func BubbleSort(numbers []int)
 func MergeSort(numbers []int) []int
+func HeapSort(numbers []int) []int
 ```
 
 ### Test
