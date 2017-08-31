@@ -11,13 +11,13 @@ After either operation, the result heap is still max heap.
 
 */
 
-type Heap struct {
+type BinaryHeap struct {
 	// heap is a special binary tree. so imbeded it here.
 	BinaryTree
 }
 
 // Remove the max top node from the heap, then rebalance it.
-func (heap *Heap) RemoveMax() {
+func (heap *BinaryHeap) RemoveMax() {
 	if heap.root == nil {
 		return
 	}
@@ -44,7 +44,7 @@ func (heap *Heap) RemoveMax() {
 }
 
 // Insert a node value to the heap. then rebalance it.
-func (heap *Heap) Insert(node *Node) {
+func (heap *BinaryHeap) Insert(node *Node) {
 	if heap.root == nil {
 		heap.root = node
 		return
@@ -61,8 +61,8 @@ func (heap *Heap) Insert(node *Node) {
 	swim(node)
 }
 
-func NewHeap(root *Node) *Heap {
-	heap := Heap{
+func NewBinaryHeap(root *Node) *BinaryHeap {
+	heap := BinaryHeap{
 		BinaryTree: BinaryTree{
 			root: root,
 		},

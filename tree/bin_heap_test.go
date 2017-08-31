@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func DemoHeap() *Heap {
+func DemoBinaryHeap() *BinaryHeap {
 	/*
 	   └── T
 	       ├── S
@@ -52,11 +52,11 @@ func DemoHeap() *Heap {
 	c22.AttachL(c33)
 	c22.AttachR(c34)
 
-	return NewHeap(root)
+	return NewBinaryHeap(root)
 }
 
-func TestHeap(_ *testing.T) {
-	heap := DemoHeap()
+func TestBinaryHeap(_ *testing.T) {
+	heap := DemoBinaryHeap()
 	heap.Print()
 
 	node := &Node{value: 'Z'}
