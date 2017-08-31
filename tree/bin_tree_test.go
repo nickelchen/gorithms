@@ -21,23 +21,23 @@ func DemoTree() *BinaryTree {
 	           ├── O
 	           └── A
 	*/
-	root := &Node{value: 'T'}
+	root := &Node{Value: 'T'}
 
 	// child level 1
-	c11 := &Node{value: 'S'}
-	c12 := &Node{value: 'R'}
+	c11 := &Node{Value: 'S'}
+	c12 := &Node{Value: 'R'}
 
 	// child level 2
-	c21 := &Node{value: 'P'}
-	c22 := &Node{value: 'N'}
-	c23 := &Node{value: 'O'}
-	c24 := &Node{value: 'A'}
+	c21 := &Node{Value: 'P'}
+	c22 := &Node{Value: 'N'}
+	c23 := &Node{Value: 'O'}
+	c24 := &Node{Value: 'A'}
 
 	// child level 3
-	c31 := &Node{value: 'E'}
-	c32 := &Node{value: 'I'}
-	c33 := &Node{value: 'H'}
-	c34 := &Node{value: 'G'}
+	c31 := &Node{Value: 'E'}
+	c32 := &Node{Value: 'I'}
+	c33 := &Node{Value: 'H'}
+	c34 := &Node{Value: 'G'}
 
 	root.AttachL(c11)
 	root.AttachR(c12)
@@ -58,7 +58,7 @@ func DemoTree() *BinaryTree {
 }
 
 func visit(node *Node) {
-	fmt.Printf("%s ", string(node.value))
+	fmt.Printf("%s ", string(node.Value))
 }
 
 func TestBFS(_ *testing.T) {
@@ -68,7 +68,7 @@ func TestBFS(_ *testing.T) {
 	bfsResult := []rune{'T', 'S', 'R', 'P', 'N', 'O', 'A', 'E', 'I', 'H', 'G'}
 
 	var values []rune
-	visit := func(node *Node) { values = append(values, node.value) }
+	visit := func(node *Node) { values = append(values, node.Value) }
 
 	tree.BFS(visit)
 	if !reflect.DeepEqual(bfsResult, values) {
@@ -83,7 +83,7 @@ func TestDFS(_ *testing.T) {
 	dfsResult := []rune{'T', 'S', 'P', 'E', 'I', 'N', 'H', 'G', 'R', 'O', 'A'}
 
 	var values []rune
-	visit := func(node *Node) { values = append(values, node.value) }
+	visit := func(node *Node) { values = append(values, node.Value) }
 
 	tree.DFS(visit)
 	if !reflect.DeepEqual(dfsResult, values) {

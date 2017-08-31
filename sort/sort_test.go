@@ -56,3 +56,9 @@ func TestMergeSort(t *testing.T) {
 	numbers = MergeSort(numbers)
 	verify(t, numbers)
 }
+
+func TestHeapSort(t *testing.T) {
+	numbers := initNumbers()
+	numbers = HeapSort(numbers)
+	verify(t, numbers)
+}

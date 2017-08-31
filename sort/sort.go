@@ -1,5 +1,7 @@
 package sort
 
+import "github.com/nickelchen/gorithms/tree"
+
 func QuickSort(numbers []int) {
 	// worst: O(N^2); best: O(NlogN)
 	if len(numbers) <= 1 {
@@ -131,4 +133,32 @@ func merge(s1, s2 []int) []int {
 		k++
 	}
 	return res
+}
+
+func HeapSort(numbers []int) []int {
+	// TBD
+
+	// construct the heap.
+	heap := tree.NewBinaryHeap()
+	for _, v := range numbers {
+		node := tree.Node{Value: rune(v)}
+		heap.Insert(&node)
+	}
+
+	var res []int
+	m := heap.RemoveMax()
+	for m != nil {
+		res = append(res, int(m.Value))
+		m = heap.RemoveMax()
+	}
+
+	reverse(res)
+	return res
+}
+
+func reverse(numbers []int) {
+	tail := len(numbers) - 1
+	for i := 0; i < len(numbers)/2; i++ {
+		numbers[i], numbers[tail-i] = numbers[tail-i], numbers[i]
+	}
 }

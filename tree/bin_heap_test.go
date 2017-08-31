@@ -19,23 +19,23 @@ func DemoBinaryHeap() *BinaryHeap {
 	           ├── O
 	           └── A
 	*/
-	root := &Node{value: 'T'}
+	root := &Node{Value: 'T'}
 
 	// child level 1
-	c11 := &Node{value: 'S'}
-	c12 := &Node{value: 'R'}
+	c11 := &Node{Value: 'S'}
+	c12 := &Node{Value: 'R'}
 
 	// child level 2
-	c21 := &Node{value: 'P'}
-	c22 := &Node{value: 'N'}
-	c23 := &Node{value: 'O'}
-	c24 := &Node{value: 'A'}
+	c21 := &Node{Value: 'P'}
+	c22 := &Node{Value: 'N'}
+	c23 := &Node{Value: 'O'}
+	c24 := &Node{Value: 'A'}
 
 	// child level 3
-	c31 := &Node{value: 'E'}
-	c32 := &Node{value: 'I'}
-	c33 := &Node{value: 'H'}
-	c34 := &Node{value: 'G'}
+	c31 := &Node{Value: 'E'}
+	c32 := &Node{Value: 'I'}
+	c33 := &Node{Value: 'H'}
+	c34 := &Node{Value: 'G'}
 
 	root.AttachL(c11)
 	root.AttachR(c12)
@@ -52,14 +52,17 @@ func DemoBinaryHeap() *BinaryHeap {
 	c22.AttachL(c33)
 	c22.AttachR(c34)
 
-	return NewBinaryHeap(root)
+	heap := NewBinaryHeap()
+	heap.Insert(root)
+
+	return heap
 }
 
 func TestBinaryHeap(_ *testing.T) {
 	heap := DemoBinaryHeap()
 	heap.Print()
 
-	node := &Node{value: 'Z'}
+	node := &Node{Value: 'Z'}
 	heap.Insert(node)
 
 	fmt.Printf("after insert Z:\n")

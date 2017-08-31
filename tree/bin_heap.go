@@ -17,33 +17,37 @@ type BinaryHeap struct {
 }
 
 // Remove the max top node from the heap, then rebalance it.
-func (heap *BinaryHeap) RemoveMax() {
+func (heap *BinaryHeap) RemoveMax() *Node {
 	if heap.root == nil {
-		return
+		return nil
 	}
-	root := heap.root
 
 	var nodes []*Node
 	heap.BFS(func(node *Node) {
 		nodes = append(nodes, node)
 	})
+
+	root := heap.root
 	if len(nodes) == 1 {
 		// only one root node.
 		heap.root = nil
+		return root
 	}
 
 	// get last node. swap it with root. then delete the last node.
 	leaf := nodes[len(nodes)-1]
-	leaf.value, root.value = root.value, leaf.value
+	leaf.Value, root.Value = root.Value, leaf.Value
 
-	// leaf value now is swapped to root,
+	// leaf Value now is swapped to root,
 	// it is useless, remove it.
 	leaf.parent.DetachL(leaf)
 
 	sink(root)
+
+	return leaf
 }
 
-// Insert a node value to the heap. then rebalance it.
+// Insert a node Value to the heap. then rebalance it.
 func (heap *BinaryHeap) Insert(node *Node) {
 	if heap.root == nil {
 		heap.root = node
@@ -61,23 +65,18 @@ func (heap *BinaryHeap) Insert(node *Node) {
 	swim(node)
 }
 
-func NewBinaryHeap(root *Node) *BinaryHeap {
-	heap := BinaryHeap{
-		BinaryTree: BinaryTree{
-			root: root,
-		},
-	}
-
+func NewBinaryHeap() *BinaryHeap {
+	heap := BinaryHeap{}
 	return &heap
 }
 
 func swim(node *Node) {
 	// swim up node to proper position
-	if node.parent == nil || node.parent.value > node.value {
+	if node.parent == nil || node.parent.Value > node.Value {
 		return
 	}
 
-	node.parent.value, node.value = node.value, node.parent.value
+	node.parent.Value, node.Value = node.Value, node.parent.Value
 	swim(node.parent)
 }
 
@@ -86,7 +85,7 @@ func sink(node *Node) {
 	var next *Node
 
 	if node.left != nil && node.right != nil {
-		if node.left.value > node.right.value {
+		if node.left.Value > node.right.Value {
 			next = node.left
 		} else {
 			next = node.right
@@ -98,11 +97,11 @@ func sink(node *Node) {
 		next = node.right
 	}
 
-	if next == nil || node.value > next.value {
+	if next == nil || node.Value > next.Value {
 		return
 	}
 
-	node.value, next.value = next.value, node.value
+	node.Value, next.Value = next.Value, node.Value
 	node = next
 
 	sink(node)

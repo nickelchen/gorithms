@@ -6,7 +6,7 @@ type Node struct {
 	parent *Node
 	left   *Node
 	right  *Node
-	value  rune
+	Value  rune
 }
 
 func (node *Node) print(prefix string, right bool) {
@@ -21,7 +21,7 @@ func (node *Node) print(prefix string, right bool) {
 		space = "│   "
 	}
 
-	fmt.Println(prefix + lead + string(node.value))
+	fmt.Println(prefix + lead + string(node.Value))
 
 	if node.left != nil {
 		node.left.print(prefix+space, false)
