@@ -112,7 +112,43 @@ root.Print()
 on a same level, the upper node is left child, the below node is right child.
 eg: `S` is left, `R` is right child of node `T` ; `E` is left, `I` is right child of node `P`
 
+lru 
+
+```
+import (
+	"fmt"
+	"github.com/nickelchen/gorithms/lru"
+)
+
+func lruDemo() {
+	l := lru.NewLRU(3)
+	l.Put("k1", "v1")
+	l.Put("k2", "v2")
+	l.Put("k3", "v3")
+	l.Put("k4", "v4")
+
+	keys := l.Keys() // []string{"k4", "k3", "k2"}
+
+	l.Get("k2")
+
+	keys = l.Keys() // []string{"k2", "k4", "k3"}
+}
+```
+
+
+
 ### API
+
+sort:
+```
+func QuickSort(numbers []int)
+func InsertSort(numbers []int)
+func ShellSort(numbers []int)
+func SelectSort(numbers []int)
+func BubbleSort(numbers []int)
+func MergeSort(numbers []int) []int
+func HeapSort(numbers []int) []int
+```
 
 binary tree:
 
@@ -137,15 +173,13 @@ func (node *Node) DetachL(child *Node)
 func (node *Node) DetachR(child *Node)
 ```
 
-sort:
+lru:
 ```
-func QuickSort(numbers []int)
-func InsertSort(numbers []int)
-func ShellSort(numbers []int)
-func SelectSort(numbers []int)
-func BubbleSort(numbers []int)
-func MergeSort(numbers []int) []int
-func HeapSort(numbers []int) []int
+func NewLRU(capacity int)
+func (lru *LRU) Put(k, v string)
+func (lru *LRU) Get(k string) (v string, err error)
+func (lru *LRU) Keys() []string
+func (lru *LRU) Head() (v string, err error)
 ```
 
 ### Test

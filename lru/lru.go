@@ -132,7 +132,7 @@ func (lru *LRU) Get(k string) (string, error) {
 }
 
 // get first key
-func (lru *LRU) First() (string, error) {
+func (lru *LRU) Head() (string, error) {
 	reversed := lru.reverseAccessMap()
 
 	head := lru.head
