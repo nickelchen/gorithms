@@ -2,6 +2,7 @@ package lru
 
 import (
 	"errors"
+	"sync"
 	"time"
 )
 
@@ -12,11 +13,12 @@ type AccessNode struct {
 }
 
 type LRU struct {
-	data     map[string]string
-	access   map[string]*AccessNode
-	head     *AccessNode
-	size     int
-	capacity int
+	data       map[string]string
+	access     map[string]*AccessNode
+	accessLock sync.Mutex
+	head       *AccessNode
+	size       int
+	capacity   int
 }
 
 func NewLRU(capacity int) *LRU {
@@ -88,6 +90,9 @@ func (lru *LRU) clean() {
 
 // put k:v
 func (lru *LRU) Put(k string, v string) {
+	lru.accessLock.Lock()
+	defer lru.accessLock.Unlock()
+
 	anode, ok := lru.access[k]
 
 	if ok {
@@ -109,6 +114,9 @@ func (lru *LRU) Put(k string, v string) {
 
 // get k
 func (lru *LRU) Get(k string) (string, error) {
+	lru.accessLock.Lock()
+	defer lru.accessLock.Unlock()
+
 	anode, ok := lru.access[k]
 
 	if ok {
