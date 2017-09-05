@@ -31,7 +31,8 @@ func NewLRU(capacity int) *LRU {
 	return lru
 }
 
-func (lru *LRU) updateAccess(k string, anode *AccessNode) {
+// promote this access node to the head of access links.
+func (lru *LRU) promote(k string, anode *AccessNode) {
 	head := lru.head
 
 	anode.time = time.Now()
@@ -47,6 +48,17 @@ func (lru *LRU) updateAccess(k string, anode *AccessNode) {
 	lru.access[k] = anode
 }
 
+// helper function. reverse access map, from k:v => v:k
+func (lru LRU) reverseAccessMap() map[*AccessNode]string {
+	reversed := make(map[*AccessNode]string)
+
+	for k, anode := range lru.access {
+		reversed[anode] = k
+	}
+	return reversed
+}
+
+// if the lru queue is too long, remove those least recent used keys
 func (lru *LRU) clean() {
 	head := lru.head
 
@@ -56,28 +68,25 @@ func (lru *LRU) clean() {
 		size++
 	}
 
-	reversed := make(map[*AccessNode]string)
-
-	for k, anode := range lru.access {
-		reversed[anode] = k
-	}
-
 	if head != nil {
-		head.prev.next = nil
-		head.prev = nil
+		reversed := lru.reverseAccessMap()
 
-		// for head != nil {
-		// 	k := reversed[head]
-		// 	delete(lru.access, k)
-		// 	head = head.next
-		// }
+		for head != nil {
+			head.prev.next = nil
+			head.prev = nil
 
-		head = nil
+			k := reversed[head]
+			delete(lru.access, k)
+			delete(lru.data, k)
+
+			head = head.next
+		}
 	}
 
 	lru.size = size - 1
 }
 
+// put k:v
 func (lru *LRU) Put(k string, v string) {
 	anode, ok := lru.access[k]
 
@@ -89,7 +98,7 @@ func (lru *LRU) Put(k string, v string) {
 		lru.size++
 	}
 
-	lru.updateAccess(k, anode)
+	lru.promote(k, anode)
 
 	lru.data[k] = v
 
@@ -98,33 +107,38 @@ func (lru *LRU) Put(k string, v string) {
 	}
 }
 
+// get k
 func (lru *LRU) Get(k string) (string, error) {
 	anode, ok := lru.access[k]
-	if !ok {
+
+	if ok {
+		anode.prev.next = anode.next
+		anode.next.prev = anode.prev
+
+		lru.promote(k, anode)
+		return lru.data[k], nil
+
+	} else {
 		return "", errors.New("not found")
 	}
+}
 
-	lru.updateAccess(k, anode)
+// get first key
+func (lru *LRU) First() (string, error) {
+	reversed := lru.reverseAccessMap()
 
+	head := lru.head
+	if head == nil {
+		return "", errors.New("empty lru")
+	}
+
+	k := reversed[head]
 	return lru.data[k], nil
 }
 
-func (lru *LRU) First() (string, error) {
-	head := lru.head
-	for k, v := range lru.access {
-		if v == head {
-			return lru.data[k], nil
-		}
-	}
-	return "", errors.New("empty lru")
-}
-
+// list all keys, ordered by last recent used.
 func (lru LRU) Keys() []string {
-	reversed := make(map[*AccessNode]string)
-
-	for k, anode := range lru.access {
-		reversed[anode] = k
-	}
+	reversed := lru.reverseAccessMap()
 
 	var key string
 	var keys []string

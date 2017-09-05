@@ -1,27 +1,48 @@
 package lru
 
 import (
-	"fmt"
+	"reflect"
 	"testing"
 )
 
 func TestLRU(t *testing.T) {
 
-	l := NewLRU(10)
-	l.Put("abc1", "efg")
-	l.Put("abc2", "efg")
-	l.Put("abc3", "efg")
-	l.Put("abc4", "efg")
-	l.Put("abc5", "efg")
-	l.Put("abc6", "efg")
-	l.Put("abc7", "efg")
-	l.Put("abc8", "efg")
-	l.Put("abc9", "efg")
-	l.Put("abc10", "efg")
+	l := NewLRU(8)
+	l.Put("k1", "value")
+	l.Put("k2", "value")
+	l.Put("k3", "value")
+	l.Put("k4", "value")
+	l.Put("k5", "value")
+	l.Put("k6", "value")
+	l.Put("k7", "value")
+	l.Put("k8", "value")
+	l.Put("k9", "value")
+	l.Put("k10", "value")
 
-	l.Get("abc8")
-	l.Get("abc4")
-	l.Get("abc2")
+	expect := []string{"k10", "k9", "k8", "k7", "k6", "k5", "k4", "k3"}
+	got := l.Keys()
+	if !reflect.DeepEqual(got, expect) {
+		t.Fatal("not equal")
+	}
 
-	fmt.Printf("lru keys :%v", l.Keys())
+	l.Get("k8")
+	l.Get("k4")
+	l.Get("k2")
+
+	expect = []string{"k4", "k8", "k10", "k9", "k7", "k6", "k5", "k3"}
+	got = l.Keys()
+	if !reflect.DeepEqual(got, expect) {
+		t.Fatal("not equal")
+	}
+
+	// this will be ignored.
+	l.Get("k1")
+	l.Put("k7", "value")
+
+	expect = []string{"k7", "k4", "k8", "k10", "k9", "k6", "k5", "k3"}
+	got = l.Keys()
+	if !reflect.DeepEqual(got, expect) {
+		t.Fatal("not equal")
+	}
+
 }
